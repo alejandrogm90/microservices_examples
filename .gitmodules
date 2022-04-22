@@ -1,0 +1,3 @@
+[submodule "ssh-examples"]
+	path = ssh-examples
+	url = git@github.com:alejandrogm90/ssh-examples.git
