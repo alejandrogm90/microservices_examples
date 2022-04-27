@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import requests
+import sqlite3
 import pymongo
 import json
 import sys
@@ -24,26 +24,20 @@ if __name__ == '__main__':
     ACCESS_KEY = config["ACCESS_KEY"]
     URL1 = HOST_URL+"/api/list?access_key="+ACCESS_KEY
     URL_MONGODB = config["URL_MONGODB"]
-    
-    payload = {}
-    headers = {}
-
-    response = requests.request("GET", URL1, headers=headers, data=payload)
-    data = response.json()
-
-    finalData = {
-        "_id": SELECTED_DATE,
-        "version": "1",
-        "crypto": data["crypto"],
-        "fiat": data["fiat"]
-    }
 
     myClient = pymongo.MongoClient(URL_MONGODB)
     myDataBase = myClient["coinlayer"]
-    myCollection = myDataBase["list"]
+    myCollection = myDataBase["historical"]
 
     MY_QUERY_TEXT = { "_id": SELECTED_DATE }
-    if myCollection.count_documents(MY_QUERY_TEXT) > 0:
-        x = myCollection.replace_one(MY_QUERY_TEXT,finalData)
-    else:
-        x = myCollection.insert_one(finalData)
+
+    conn = cfs.create_sqlitle3_connection('SQLitle_test')
+    cur = conn.cursor()
+    for element in myCollection.find(MY_QUERY_TEXT):
+        for element2 in element["rates"]:
+            sql = " INSERT INTO historical (date,name,value) VALUES('"+SELECTED_DATE+"','"+element2+"',"+str(element["rates"][element2])+") "
+            try:
+                cur.execute(sql)
+                conn.commit()
+            except sqlite3.Error as e:
+                print(e)

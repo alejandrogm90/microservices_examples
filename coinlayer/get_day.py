@@ -5,17 +5,15 @@ import pymongo
 import json
 import sys
 sys.path.append("..") 
-import commonFunctions as cfs
+import python3_examples.commonFunctions as cfs
+
+CONFIG = json.load(open('config.json'))
 
 if __name__ == '__main__':
 
     if len(sys.argv) != 2:
-        cfs.myError("Númeero de parámetros erroneo.",1)
-
-    if not cfs.isDate(sys.argv[1]):
-        cfs.myError("La fecha introducida es erronea.",2)
-
-    config = json.load(open('../config.json'))
+        print("Númeero de parámetros erroneo.")
+        exit(1)
 
     SELECTED_DATE = str(sys.argv[1])
     HOST_URL = config["HOST_URL"]

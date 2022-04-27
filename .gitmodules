@@ -1,3 +1,6 @@
-[submodule "ssh-examples"]
-	path = ssh-examples
-	url = git@github.com:alejandrogm90/ssh-examples.git
+[submodule "ssh_examples"]
+	path = ssh_examples
+	url = git@github.com:alejandrogm90/ssh_examples.git
+[submodule "python3_examples"]
+	path = python3_examples
+	url = git@github.com:alejandrogm90/python3_examples.git
