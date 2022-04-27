@@ -16,7 +16,7 @@ if __name__ == '__main__':
         exit(1)
 
     if not cfs.isDate(sys.argv[1]):
-        print("La fecha introducida es erronea.")
+        print("The date entered is erroneous.")
         exit(2)
 
     SELECTED_DATE = str(sys.argv[1])

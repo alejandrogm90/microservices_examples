@@ -12,7 +12,7 @@ CONFIG = json.load(open('config.json'))
 if __name__ == '__main__':
 
     if len(sys.argv) != 2:
-        print("Númeero de parámetros erroneo.")
+        print("Erroneous parameter number.")
         exit(1)
 
     SELECTED_DATE = str(sys.argv[1])
