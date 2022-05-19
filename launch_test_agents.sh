@@ -2,7 +2,7 @@
 
 # VARIABLES AND FUNCTIONS
 DIR_HOME=$(cd `dirname $0` && pwd)
-source "ssh-examples/scripts/commonFunctions.sh"
+source "ssh_examples/scripts/commonFunctions.sh"
 SCRIPT_NAME=`getJustStriptName $0`
 export LOG_FILE=${DIR_HOME}"/"${SCRIPT_NAME}"_"`date +%F`".log"
 SCRIPT_1="./coinlayer/get_day.py"
@@ -17,6 +17,15 @@ export script_info=(
 
 showScriptInfo
 
-echo "" > $LOG_FILE
+#echo "" > $LOG_FILE
 
-reactive_agent/agent_1.py ABC
+CASH=100
+COINS=100
+
+for cDate in `getAllDatesOfOneMonth 2022 3` ; do
+	#reaction=`reactive_agent/agent_1.py $cDate BTC $CASH $COINS`
+	reaction=`reactive_agent/agent_2.py $cDate BTC $CASH $COINS 0.02`
+	echo "$reaction"
+	CASH=`echo $reaction | cut -d'|' -f3`
+	COINS=`echo $reaction | cut -d'|' -f4`
+done
